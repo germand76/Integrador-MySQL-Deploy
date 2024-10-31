@@ -1,7 +1,6 @@
 const { DataTypes } = require('sequelize');
-const { sequelize } = require('../conexion/database'); // Importa la conexión
+const { sequelize } = require('../conexion/database');
 
-// Definir el modelo de Generos
 const Generos = sequelize.define('Generos', {
     id: {
         type: DataTypes.INTEGER,
@@ -17,4 +16,4 @@ const Generos = sequelize.define('Generos', {
     timestamps: false
 });
 
-module.exports = Generos; // Exporta correctamente el modelo
+module.exports = Generos;

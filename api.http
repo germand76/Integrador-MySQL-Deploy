@@ -2,13 +2,121 @@
 GET http://localhost:3000
 
 
+### recupera todos los contenidos
+GET http://localhost:3000/contenidos
+
+
+
+### recupera un contenido por id
+GET http://localhost:3000/contenidos/102
+
+
+### recupera un contenido por titulo 
+GET http://localhost:3000/contenidos/titulo/tronos
+
+
+### recupera un contenido por titulo 
+GET http://localhost:3000/contenidos/titulo/Juego de tronos
+
+
+
+### recupera todos los contenidos segun categoria (Pelicula o Serie)
+GET http://localhost:3000/contenidos/categoria/Serie
+
+
+
+###Recupera todos los contenidos que incluyen el genero especificado
+GET http://localhost:3000/contenidos/genero/Drama
+
+
+
+### crea nuevo contenido 
+POST http://localhost:3000/contenidos
+Content-Type: application/json
+
+{
+    "poster": "./posters/x.jpg",
+    "titulo": "The Pelicula",
+    "id_categoria": 2,
+    "gen": "Drama",
+    "resumen": "Pelicula resumen Pelicula resumen Pelicula resumen",
+    "temporadas": null,
+    "busqueda": "The pelicula, Drama, The pelicula, Drama, The pelicula, Drama, The pelicula, Drama, The pelicula, Drama",
+    "duracion": "124 minutos",
+    "trailer": "https://www.youtube.com/embed/pelicula",
+    "generos": [1, 4, 5],
+    "reparto": [9, 11, 22, 23] 
+}
+
+
+### crea nuevo contenido 
+POST http://localhost:3000/contenidos
+Content-Type: application/json
+
+{
+    "poster": "./posters/s.jpg",
+    "titulo": "The Serie",
+    "id_categoria": 1,
+    "gen": "Drama",
+    "resumen": "Serie resumen Serie resumen Serie resumen",
+    "temporadas": 3,
+    "busqueda": "The Serie, Drama, The Serie, Drama, The Serie, Drama, The Serie, Drama, The Serie, Drama",
+    "duracion": null,
+    "trailer": "https://www.youtube.com/embed/serie",
+    "generos": [3, 10],
+    "reparto": [4, 5, 43, 47] 
+}
+
+
+
+### actualiza un contenido
+PUT http://localhost:3000/contenidos/102
+Content-Type: application/json
+
+{
+  "poster": "./posters/102.jpg",
+  "categoria": "Serie",
+  "titulo": "The Serie actualizada",
+  "gen": "Drama",
+  "generos": "Misterio, Suspenso",
+  "reparto": "Tobias Menzies, Vanesa Kirby, Chris Evans, Jeremy Renner",
+  "temporadas": 3,
+  "busqueda": "The Serie, Drama,  actualizada, The Serie, Drama, The Serie, Drama, The Serie,  actualizada, Drama, The Serie, Drama",
+  "duracion": null,
+  "trailer": "https://www.youtube.com/serie/ actualizada",
+  "generos": [12, 17, 18],
+  "reparto": [124, 125, 126, 127, 128] 
+}
+
+
+
+### elimina un contenido 
+DELETE http://localhost:3000/contenidos/100
+
+
+
+### actualiza temporada
+PUT http://localhost:3000/contenidos/temporada/1
+Content-Type: application/json
+
+{
+  "temporadas": 5
+}
+
+
+
 ### recupera todos los actores
 GET http://localhost:3000/actores
 
 
-### recupera un actor por id
-GET http://localhost:3000/actores/124
 
+### recupera un actor por id
+GET http://localhost:3000/actores/129345325436436
+
+
+
+### elimina un actor por id
+DELETE http://localhost:3000/actores/845
 
 
 
@@ -23,66 +131,11 @@ Content-Type: application/json
 
 
 
-
-
-
-
-
-
-### recupera todos los contenidos
-GET http://localhost:3000/contenidos
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## actualiza un actor por id
-PUT http://localhost:3000/actores/:id
+### actualiza un actor por id
+PUT http://localhost:3000/actores/843
 Content-Type: application/json
 
 {
-
+  "nombre": "PPPPPP",
+  "apellido": "AAAAA"
 }
-
-## elimina un actor por id
-DELETE http://localhost:3000/actores/:id
-
-
-
-
-
-## recupera una pelicula por id
-GET http://localhost:3000/peliculas/:id
-
-
-## crea una nueva pelicula
-POST http://localhost:3000/peliculas
-Content-Type: application/json
-
-{
-
-}
-
-
-## actualiza una pelicula por id
-PUT http://localhost:3000/peliculas/:id
-Content-Type: application/json
-
-{}
-
-
-## elimina una pelicula por id
-DELETE http://localhost:3000/peliculas/:id
-

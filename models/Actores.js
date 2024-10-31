@@ -1,7 +1,5 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../conexion/database');
-const Contenidos = require('./Contenidos');
-const Repartos = require('./Repartos');
 
 const Actores = sequelize.define('Actores', {
     id: {
@@ -21,10 +19,5 @@ const Actores = sequelize.define('Actores', {
     tableName: 'Actores',
     timestamps: false
 });
-
-Actores.belongsToMany(Contenidos, { through: Repartos, foreignKey: 'id_actor', otherKey: 'id_contenido' });
-//Actores.belongsToMany(Contenidos, { through: 'Repartos', foreignKey: 'id_actor' });
-
-//Actores.belongsToMany(Contenidos, { through: Repartos, foreignKey: 'id_actor' });
 
 module.exports = Actores;

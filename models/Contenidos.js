@@ -2,17 +2,18 @@ const { DataTypes } = require('sequelize');
 const { sequelize } = require('../conexion/database');
 const Categorias = require('./Categorias');
 const Actores = require('./Actores');
-//const Generos = require('./Generos');
+const Generos = require('./Generos');
 const Repartos = require('./Repartos');
+const Generos_contenido = require('./Generos_contenido');
 
-// Definir el modelo de Contenidos
+
 const Contenidos = sequelize.define('Contenidos', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    poster: {
+    poster: { 
         type: DataTypes.STRING(50),
         allowNull: false
     },
@@ -56,9 +57,8 @@ const Contenidos = sequelize.define('Contenidos', {
     timestamps: false
 });
 
-
 Contenidos.belongsTo(Categorias, { foreignKey: 'id_categoria'});
-
 Contenidos.belongsToMany(Actores, { through: Repartos, foreignKey: 'id_contenido', otherKey: 'id_actor' });
+Contenidos.belongsToMany(Generos, { through: Generos_contenido, foreignKey: 'id_contenido', otherKey: 'id_genero' });
 
 module.exports = Contenidos;
