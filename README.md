@@ -25,14 +25,6 @@ El archivo trailerflix.json incluye propiedades como ID, título, categorías, g
 - **/routes/**: Definición de las rutas y endpoints del CRUD.
 - **/controllers/**: Básicamente, donde se manejará la lógica de negocio y la interacción entre el usuario y los datos de la aplicación. En sintesis, los controladores se encargan de gestionar las peticiones que llegan a los endpoints, ejecutar la lógica correspondiente y enviar las respuestas adecuadas.
 
-**/controllers/actoresControllers.js**: archivo que hará controlador para los actores donde se tiene funciones que permiten:
-
-    * Obtener datos (listar actores) [getTodosLosActores]: función que busca en la BD y devuelve una lista con todos los actores almacenados.
-    * Obtener un solo actor [getActorPorId]: función que busca en la BD un actor específico; por ejemplo, en este caso por su id,  y devuelve los datos de dicho actor.
-    * Crear un nuevo actor [crearActor]: función que toma los datos de un nuevo actor desde el cuerpo de la petición (JSON), valida los datos, y los guarda en la BD.
-    * Actualizar un actor [actualizaActor]: función que permite modificar los datos de un actor en caso que exista. Encontrando el actor por su id y actualizando los valores en la BD.
-    * Eliminar un actor [eliminarActor]: función para eliminar un actor de la BD a traves de su id.
-
 
 **/controllers/generosControllers.js**: archivo que hará controlador para los generos de los contenidos. En este caso lo utilizo con una única funcion:
 
@@ -49,6 +41,20 @@ El archivo trailerflix.json incluye propiedades como ID, título, categorías, g
    * Actualizar un contenido [actualizarContenido]: función que permite modificar los datos de un contenido en caso que exista. Encontrando el contenido por su id y actualizando los valores en la BD.
    * Eliminar un actor [eliminarContenido]: función para eliminar un contenido de la BD a traves de su id. Lo primero de todo es suprimir los vinculos existentes con las tablas involucradas, de lo contrario no es posible poder eliminar el contenido en cuestion
    * Actualizar un contenido [actualizarTemporada]: función que permite modificar un atributo particular de la tabla Contenidos. En este caso el valor a actualizar es el de temporadas; que se hará efectivo siempre y cuando la categoria del contenido que se desea actualizar corresponda a una Serie; en otro caso se indicará que no es posible
-   
+
+
+#### En el pedido para la entrega no estaba especificado esto, pero a  modo de practica implementé este controllers:
+
+**/controllers/actoresControllers.js**: archivo que hará controlador para los actores donde se tiene funciones que permiten:
+
+    * Obtener datos (listar actores) [getTodosLosActores]: función que busca en la BD y devuelve una lista con todos los actores almacenados.
+    * Obtener un solo actor [getActorPorId]: función que busca en la BD un actor específico; por ejemplo, en este caso por su id,  y devuelve los datos de dicho actor.
+    * Crear un nuevo actor [crearActor]: función que toma los datos de un nuevo actor desde el cuerpo de la petición (JSON), valida los datos, y los guarda en la BD.
+    * Actualizar un actor [actualizaActor]: función que permite modificar los datos de un actor en caso que exista. Encontrando el actor por su id y actualizando los valores en la BD.
+    * Eliminar un actor [eliminarActor]: función para eliminar un actor de la BD a traves de su id.
+
+
+
+
 
        
