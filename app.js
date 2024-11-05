@@ -1,16 +1,18 @@
 const express = require('express');
-const { sequelize } = require('./conexion/database'); // Conexión a la BD
-const contenidosRoutes = require('./routes/contenidosRoutes'); 
-const actoresRoutes = require('./routes/actoresRoutes'); 
-const generosRoutes = require('./routes/generosRoutes'); 
+const { sequelize } = require('./src/conexion/database'); 
+const contenidosRoutes = require('./src/routes/contenidosRoutes'); 
+const actoresRoutes = require('./src/routes/actoresRoutes'); 
+
+const { swaggerUi, swaggerDocs } = require('./src/utils/swaggerConfig');
 
 const app = express();
 
 app.use(express.json());
 
-app.use('/', contenidosRoutes);
-app.use('/', actoresRoutes);
-app.use('/contenidos', generosRoutes);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
+app.use('/contenidos', contenidosRoutes);
+app.use('/actores', actoresRoutes);
 
 app.get('/', (req, res) => {
   res.send('Servidor funcionando');
@@ -25,5 +27,6 @@ app.use((req, res, next) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`Servidor corriendo en http://localhost:${PORT}/api-docs`);
 });
 

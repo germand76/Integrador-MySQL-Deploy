@@ -4,7 +4,7 @@ const Categorias = require('./Categorias');
 const Actores = require('./Actores');
 const Generos = require('./Generos');
 const Repartos = require('./Repartos');
-const Generos_contenido = require('./Generos_contenido');
+const Generos_contenido = require('./GenerosContenido');
 
 
 const Contenidos = sequelize.define('Contenidos', {

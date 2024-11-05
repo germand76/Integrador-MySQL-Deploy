@@ -3,7 +3,7 @@ const { sequelize } = require('../conexion/database');
 const Generos = require('./Generos');
 const Contenidos = require('./Contenidos');
 
-const Generos_contenido = sequelize.define('Generos_contenido', {
+const GenerosContenido = sequelize.define('GenerosContenido', {
     id_genero: {
         type: DataTypes.INTEGER,
         references: {
@@ -23,4 +23,4 @@ const Generos_contenido = sequelize.define('Generos_contenido', {
     timestamps: false
 });
 
-module.exports = Generos_contenido;
+module.exports = GenerosContenido;

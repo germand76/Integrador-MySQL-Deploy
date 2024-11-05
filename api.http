@@ -21,12 +21,12 @@ GET http://localhost:3000/contenidos/titulo/Juego de tronos
 
 
 ### recupera todos los contenidos segun categoria (Pelicula o Serie)
-GET http://localhost:3000/contenidos/categoria/Serie
+GET http://localhost:3000/contenidos/categoria/serie
 
 
 
 ###Recupera todos los contenidos que incluyen el genero especificado
-GET http://localhost:3000/contenidos/genero/Drama
+GET http://localhost:3000/contenidos/genero/Comedia
 
 
 
@@ -90,18 +90,19 @@ Content-Type: application/json
 
 
 
-### elimina un contenido 
-DELETE http://localhost:3000/contenidos/100
-
-
-
 ### actualiza temporada
 PUT http://localhost:3000/contenidos/temporada/1
+
 Content-Type: application/json
 
 {
   "temporadas": 5
 }
+
+
+
+### elimina un contenido 
+DELETE http://localhost:3000/contenidos/100
 
 
 

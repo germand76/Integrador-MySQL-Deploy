@@ -1,15 +1,17 @@
 const Actores = require('../models/Actores');
 
+
 const getTodosLosActores = async (req, res) => {
   try {
     const actores = await Actores.findAll({
       attributes: ['id', 'apellido', 'nombre']
     });
 
-    res.json(actores);
+    if (actores.length > 0) { res.json(actores); }
+    else { res.status(404).json({ error: 'No se encontraron actores para listar' }); }
+    
   } catch (error) {
-    console.error('Error al obtener los actores:', error);
-    res.status(500).json({ message: 'Ocurrió un error al obtener los actores' });
+      res.status(500).json({ error: 'Error en el servidor', description: 'Ocurrió un error al obtener los actores' });
   }
 };   
 
@@ -36,7 +38,10 @@ const crearActor = async (req, res) => {
     }
 
     const actor = await Actores.create({ nombre, apellido });
-    res.json(actor);
+    return res.status(201).json({
+      message: 'Actor creado exitosamente',
+      data: actor
+    });
   } catch (error) {
     res.status(500).send({ error: 'No se pudo dar de alta el actor' });
   }

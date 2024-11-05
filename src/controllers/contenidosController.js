@@ -2,7 +2,7 @@ const Contenidos = require('../models/Contenidos');
 const Categorias = require('../models/Categorias');
 const Actores = require('../models/Actores');
 const Generos = require('../models/Generos');
-const Generos_contenido = require('../models/Generos_contenido');
+const GenerosContenido = require('../models/GenerosContenido');
 const Repartos = require('../models/Repartos');
 
 const { Op } = require('sequelize');
@@ -25,6 +25,10 @@ const getTodosLosContenidos = async (req, res) => {
         }
       ]
     });
+
+    if (contenidos.length === 0) {
+      return res.status(404).json({ message: 'No se encontraron contenidos para listar.' });
+    }
 
     const formattedData = contenidos.map(contenido => ({
       id: contenido.id,
@@ -143,8 +147,9 @@ const getContenidosPorCategoria = async (req, res) => {
   try {
 
     const { categoria } = req.params;
+    const cat = categoria.toUpperCase();
 
-    if (categoria !== 'Pelicula' && categoria !== 'Serie') {
+    if (cat !== 'PELICULA' && cat !== 'SERIE') {
       return res.status(400).json({ error: 'Categoría inválida. Solo se permite "Pelicula" o "Serie".' });
     }
 
@@ -186,6 +191,63 @@ const getContenidosPorCategoria = async (req, res) => {
     res.status(500).json({ error: 'Error al obtener contenidos por categoría' });
   }
 }; 
+
+
+const getContenidosPorGenero = async (req, res) => {
+  try {
+      const { genero } = req.params;
+  
+      const generoEncontrado = await Generos.findOne({
+        where: { descripcion: genero }
+      });
+  
+      if (!generoEncontrado) {
+        return res.status(404).json({ error: 'El genero especificado no esta almacenado' });
+      }
+  
+      const contenidos = await Contenidos.findAll({
+        include: [
+          {
+            model: Generos,
+            through: { attributes: [] }
+          },
+          {
+            model: Actores,
+            through: { attributes: [] }
+          },
+          {
+            model: Categorias,
+            attributes: ['descripcion']
+          }
+        ]
+      });
+  
+      const resultados = contenidos
+        .filter(contenido => contenido.Generos.some(g => g.descripcion === genero))
+        .map((contenido) => {
+          const generos = contenido.Generos.map(g => g.descripcion).join(', ');
+          const reparto = contenido.Actores.map(actor => `${actor.nombre} ${actor.apellido}`).join(', ');
+          
+          return {
+            id: contenido.id,
+            poster: contenido.poster,
+            categoria: contenido.Categoria.descripcion,
+            titulo: contenido.titulo,
+            gen: contenido.gen,
+            generos: generos, 
+            reparto: reparto,
+            temporadas: contenido.temporadas,
+            busqueda: contenido.busqueda,
+            duracion: contenido.duracion || "NULL",
+            trailer: contenido.trailer
+          };
+        });
+  
+      res.json(resultados);
+    } catch (error) {
+        res.status(500).json({ error: 'Error al obtener los contenidos por género' });
+    }
+};
 
 
 const crearContenido = async (req, res) => {
@@ -286,7 +348,7 @@ const eliminarContenido = async (req, res) => {
     const { id } = req.params;
 
     //Elimino las asociaciones en las tablas intermedias, para poder borrar luego el contenido
-    await Generos_contenido.destroy({ where: { id_contenido: id } });
+    await GenerosContenido.destroy({ where: { id_contenido: id } });
     await Repartos.destroy({ where: { id_contenido: id } });
 
     const contenidoEliminado = await Contenidos.destroy({ where: { id } });
@@ -332,4 +394,4 @@ const actualizarTemporada = async (req, res) => {
   }
 };
 
-module.exports = { getTodosLosContenidos, getContenidoPorId, getContenidoPorTitulo, getContenidosPorCategoria, crearContenido, actualizarContenido,  eliminarContenido, actualizarTemporada };
+module.exports = { getTodosLosContenidos, getContenidoPorId, getContenidoPorTitulo, getContenidosPorCategoria, getContenidosPorGenero, crearContenido, actualizarContenido,  eliminarContenido, actualizarTemporada };
