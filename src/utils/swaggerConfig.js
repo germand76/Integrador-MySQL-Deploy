@@ -18,8 +18,11 @@ const swaggerOptions = {
     basePath: '/src',
     servers: [
       {
-        url: 'http://localhost:3000',
+        url: 'http://localhost:3001',
       },
+      {
+        url: 'https://integrador-mysql-deploy-production.up.railway.app',
+      }
     ],
     components: {
       schemas: {
