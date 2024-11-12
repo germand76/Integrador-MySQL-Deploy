@@ -16,14 +16,6 @@ const swaggerOptions = {
       description: 'Documentación generada con Swagger para presentación del proyecto integrador correspondiente a los temas relacionados con CRUD con Node.js y MySQL',
     },
     basePath: '/src',
-    servers: [
-      {
-        url: 'http://localhost:3001',
-      },
-      {
-        url: 'https://integrador-mysql-deploy-production.up.railway.app',
-      }
-    ],
     components: {
       schemas: {
         Actores: actorSchema,
